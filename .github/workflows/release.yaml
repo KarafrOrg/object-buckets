@@ -60,7 +60,7 @@ jobs:
       - name: Update index
         run: |
           cp ../main/.deploy/*.tgz . || cp .deploy/*.tgz . || true
-          helm repo index . --url https://karafrorg.github.io/object-bucket --merge index.yaml || helm repo index . --url https://karafrorg.github.io/object-bucket
+          helm repo index . --url https://karafrorg.github.io/object-buckets --merge index.yaml || helm repo index . --url https://karafrorg.github.io/object-buckets
           git add index.yaml *.tgz
           git commit -m "Release ${{ steps.chart_version.outputs.name }}-${{ steps.chart_version.outputs.version }}" || true
           git push origin gh-pages
