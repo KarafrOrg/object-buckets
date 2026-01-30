@@ -1,6 +1,7 @@
 # object-buckets
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/object-buckets)](https://artifacthub.io/packages/search?repo=object-buckets)
 
 A Helm chart for Kubernetes to create a storage bucket using Rook-Ceph
 
