@@ -42,25 +42,29 @@ jobs:
 
       - name: Package chart
         run: |
-          mkdir -p .deploy
-          helm package . -d .deploy
+          helm package . -d /tmp/charts
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.chart_version.outputs.name }}-${{ steps.chart_version.outputs.version }}
-          files: .deploy/*.tgz
+          files: /tmp/charts/*.tgz
           generate_release_notes: true
 
       - name: Checkout gh-pages
         run: |
-          git fetch origin gh-pages || (git checkout --orphan gh-pages && git rm -rf . && git commit --allow-empty -m "Initial gh-pages" && git push origin gh-pages)
-          git checkout gh-pages
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
 
       - name: Update index
         run: |
-          cp ../main/.deploy/*.tgz . || cp .deploy/*.tgz . || true
-          helm repo index . --url https://karafrorg.github.io/object-buckets --merge index.yaml || helm repo index . --url https://karafrorg.github.io/object-buckets
+          # Copy packaged chart from temp location
+          cp /tmp/charts/*.tgz .
+
+          # Generate or update repository index
+          helm repo index . --url https://karafrorg.github.io/object-buckets --merge index.yaml 2>/dev/null || helm repo index . --url https://karafrorg.github.io/object-buckets
+
+          # Commit and push changes
           git add index.yaml *.tgz
-          git commit -m "Release ${{ steps.chart_version.outputs.name }}-${{ steps.chart_version.outputs.version }}" || true
+          git commit -m "Release ${{ steps.chart_version.outputs.name }}-${{ steps.chart_version.outputs.version }}" || echo "No changes to commit"
           git push origin gh-pages
