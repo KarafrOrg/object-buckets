@@ -1,0 +1,35 @@
+{{- range $bucket := .Values.buckets }}
+{{- if and $bucket.generateBucketName $bucket.storageClassName }}
+{{- fail (printf "Both generateBucketName and storageClassName cannot be set at the same time for bucket '%s'" $bucket.name) }}
+{{- end }}
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: {{ $bucket.name }}
+  {{- with $bucket.namespace }}
+  namespace: {{ . }}
+  {{- end }}
+  {{- with $bucket.labels }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $bucket.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if $bucket.generateBucketName }}
+  generateBucketName: {{ $bucket.name }}
+  {{- end }}
+  {{- if $bucket.storageClassName }}
+  storageClassName: {{ $bucket.storageClassName }}
+  {{- end }}
+  {{- with $bucket.additionalConfig }}
+  additionalConfig:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $bucket.objectBucketName }}
+  objectBucketName: {{ . }}
+  {{- end }}
+{{- end }}

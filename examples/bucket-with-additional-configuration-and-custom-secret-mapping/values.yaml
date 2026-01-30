@@ -1,0 +1,25 @@
+object-buckets:
+  buckets:
+    - name: backup-storage
+      storageClassName: rook-ceph-bucket
+      namespace: backup
+      additionalConfig:
+        maxObjects: "10000"
+        maxSize: "100G"
+      labels:
+        app: backup-service
+        tier: storage
+      pushSecret:
+        enabled: true
+        secretStoreName: aws-secrets-manager
+        secretStoreKind: SecretStore
+        refreshInterval: 30m
+        secretMappings:
+          - secretKey: AWS_ACCESS_KEY_ID
+            remoteKey: "backup/s3-access-key"
+          - secretKey: AWS_SECRET_ACCESS_KEY
+            remoteKey: "backup/s3-secret-key"
+          - secretKey: BUCKET_NAME
+            remoteKey: "backup/bucket-name"
+          - secretKey: BUCKET_HOST
+            remoteKey: "backup/bucket-host"

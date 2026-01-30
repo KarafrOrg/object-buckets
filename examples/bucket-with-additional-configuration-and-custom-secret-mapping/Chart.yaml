@@ -1,0 +1,16 @@
+name: basic-bucket-with-push-secret-enabled
+version: 0.1.0
+apiVersion: v2
+description: |
+  Example Helm chart for creating an Object Bucket with PushSecret enabled using Rook-Ceph and custom secret mappings
+home: https://github.com/KarafrOrg/object-bucket
+keywords:
+  - rook
+  - ceph
+  - storage
+  - bucket
+  - object-store
+dependencies:
+  - name: object-buckets
+    version: 0.1.0
+    repository: "file://../../"

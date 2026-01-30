@@ -1,0 +1,64 @@
+buckets:
+  - # Name of the ObjectBucketClaim resource
+    name: storage-bucket
+
+    # Namespace where the ObjectBucketClaim will be created (optional)
+    # If not set, it will be created in the release namespace
+    namespace: ""
+
+    # Storage class name for the bucket provisioner
+    # Note: Cannot be set at the same time as generateBucketName
+    storageClassName: rook-ceph-bucket
+
+    # Generate a unique bucket name (optional)
+    # Note: Cannot be set at the same time as storageClassName
+    # generateBucketName: true
+
+    # Explicit object bucket name (optional)
+    # If set, this will be used instead of generating a name
+    objectBucketName: ""
+
+    # Additional labels for the ObjectBucketClaim resource (optional)
+    labels: {}
+      # app: my-application
+      # environment: production
+
+    # Additional annotations for the ObjectBucketClaim resource (optional)
+    annotations: {}
+      # description: "Bucket for application storage"
+
+    # Provider-specific additional configuration (optional)
+    additionalConfig: {}
+      # maxObjects: "1000"
+      # maxSize: "10G"
+
+    # PushSecret configuration for syncing credentials to external secret store (optional)
+    pushSecret:
+      # Enable or disable PushSecret creation
+      enabled: true
+
+      # Name of the source secret to push (defaults to: <bucket-name>-bucket-claim)
+      sourceSecretName: ""
+
+      # Name of the secret store to push secrets to (required if enabled)
+      secretStoreName: "gcp-sm-cluster-secret-store"
+
+      # Kind of secret store (ClusterSecretStore or SecretStore)
+      secretStoreKind: "ClusterSecretStore"
+
+      # How often to refresh/sync the secret
+      refreshInterval: "1h"
+
+      # Additional labels for the PushSecret resource (optional)
+      labels: {}
+        # app: my-application
+
+      # Additional annotations for the PushSecret resource (optional)
+      annotations: {}
+
+      # Secret key mappings - maps secret keys to remote keys
+      secretMappings:
+        - secretKey: AWS_ACCESS_KEY_ID
+          remoteKey: "storage-bucket/access-key"
+        - secretKey: AWS_SECRET_ACCESS_KEY
+          remoteKey: "storage-bucket/s3-secret-key"

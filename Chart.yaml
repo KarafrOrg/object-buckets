@@ -1,0 +1,11 @@
+name: object-buckets
+version: 0.1.0
+apiVersion: v2
+description: A Helm chart for Kubernetes to create a storage bucket using Rook-Ceph
+keywords:
+  - rook
+  - ceph
+  - storage
+  - bucket
+  - object-store
+home: https://github.com/KarafrOrg/object-bucket

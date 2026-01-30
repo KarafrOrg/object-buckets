@@ -1,0 +1,9 @@
+object-buckets:
+  buckets:
+    - name: temp-storage
+      storageClassName: rook-ceph-bucket
+      namespace: temporary
+      labels:
+        purpose: temporary
+      pushSecret:
+        enabled: false

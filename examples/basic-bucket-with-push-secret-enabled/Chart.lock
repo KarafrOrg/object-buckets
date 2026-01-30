@@ -1,0 +1,6 @@
+dependencies:
+- name: object-buckets
+  repository: file://../../
+  version: 0.1.0
+digest: sha256:26a7c51bc6266cb41fcb9fba7a15c7df38ee14c6d0afc0f4fd82b5db2ab4f038
+generated: "2026-01-30T20:25:54.004268+01:00"
