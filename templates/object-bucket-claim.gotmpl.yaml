@@ -29,7 +29,7 @@ spec:
   additionalConfig:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with $bucket.objectBucketName }}
-  objectBucketName: {{ . }}
+  {{- if $bucket.bucketName }}
+  objectBucketName: {{ $bucket.bucketName }}
   {{- end }}
 {{- end }}
