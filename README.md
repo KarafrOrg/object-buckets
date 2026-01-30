@@ -4,7 +4,7 @@
 
 A Helm chart for Kubernetes to create a storage bucket using Rook-Ceph
 
-**Homepage:** <https://github.com/KarafrOrg/object-bucket>
+**Homepage:** <https://github.com/KarafrOrg/object-buckets>
 
 ## Values
 
