@@ -6,3 +6,4 @@ charts/*.tgz
 # Helm dependency charts
 charts/
 **/charts/
+*.idea/
