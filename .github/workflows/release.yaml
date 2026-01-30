@@ -42,6 +42,7 @@ jobs:
 
       - name: Package chart
         run: |
+          mkdir -p .deploy
           helm package . -d .deploy
 
       - name: Create release
@@ -53,13 +54,13 @@ jobs:
 
       - name: Checkout gh-pages
         run: |
-          git fetch origin gh-pages || git checkout --orphan gh-pages && git rm -rf . && git commit --allow-empty -m "Initial gh-pages"
+          git fetch origin gh-pages || (git checkout --orphan gh-pages && git rm -rf . && git commit --allow-empty -m "Initial gh-pages" && git push origin gh-pages)
           git checkout gh-pages
 
       - name: Update index
         run: |
+          cp ../main/.deploy/*.tgz . || cp .deploy/*.tgz . || true
           helm repo index . --url https://karafrorg.github.io/object-bucket --merge index.yaml || helm repo index . --url https://karafrorg.github.io/object-bucket
-          cp .deploy/*.tgz .
           git add index.yaml *.tgz
           git commit -m "Release ${{ steps.chart_version.outputs.name }}-${{ steps.chart_version.outputs.version }}" || true
           git push origin gh-pages
