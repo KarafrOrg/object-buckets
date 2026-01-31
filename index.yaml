@@ -16,19 +16,4 @@ entries:
     urls:
     - https://karafrorg.github.io/object-buckets/object-buckets-0.1.0.tgz
     version: 0.1.0
-  - apiVersion: v2
-    created: "2026-01-30T21:36:15.87055485Z"
-    description: A Helm chart for Kubernetes to create a storage bucket using Rook-Ceph
-    digest: c2bf92777e15a546892539ae81e29841fa87775660161fbab01386fba772e814
-    home: https://github.com/KarafrOrg/object-bucket
-    keywords:
-    - rook
-    - ceph
-    - storage
-    - bucket
-    - object-store
-    name: object-buckets
-    urls:
-    - https://karafrorg.github.io/object-buckets/.deploy/object-buckets-0.1.0.tgz
-    version: 0.1.0
 generated: "2026-01-30T21:36:15.865314582Z"
